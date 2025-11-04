@@ -1,0 +1,17 @@
+
+11/01/2025		Error: blocked by CORS
+11/01/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		Error: blocked by CORS
+11/03/2025		TypeError: Cannot destructure property 'username' of 'req.body' as it is undefined.
+11/03/2025		TypeError: Cannot destructure property 'username' of 'req.body' as it is undefined.
+11/03/2025		TypeError: req.sendStatus is not a function

@@ -41,7 +41,9 @@ const handleLogin = async (req, res) => {
       });
       res.json({ accessToken });
     } else {
-      return res.status(403).json({ message: "password is not correct" });
+      return res
+        .status(403)
+        .json({ message: `username: ${username}, password: ${password}` });
     }
   } catch (err) {
     console.log(err);

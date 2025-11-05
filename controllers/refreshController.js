@@ -11,13 +11,11 @@ const handleRefresh = async (req, res) => {
 
   const foundUser = await User.findOne({ refreshToken: refreshToken }).exec();
   if (!foundUser) {
-    console.log("user not found");
     return res.sendStatus(403);
   }
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err || decoded.username !== foundUser.username) {
-      console.log(err);
       return res.sendStatus(403);
     }
   });

@@ -18,6 +18,7 @@ const handleLogin = async (req, res) => {
         .json({ message: `user ${username} was not found` });
     }
     const match = await bcrypt.compare(password, foundUser.password);
+    console.log(match);
     if (match) {
       const accessToken = jwt.sign(
         {

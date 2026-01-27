@@ -15,3 +15,5 @@
 11/03/2025		TypeError: Cannot destructure property 'username' of 'req.body' as it is undefined.
 11/03/2025		TypeError: Cannot destructure property 'username' of 'req.body' as it is undefined.
 11/03/2025		TypeError: req.sendStatus is not a function
+01/27/2026		TypeError: console.lg is not a function
+01/27/2026		TypeError: console.lg is not a function

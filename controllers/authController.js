@@ -4,13 +4,23 @@ const bcrypt = require("bcrypt");
 
 const handleLogin = async (req, res) => {
   const { username, password } = req.body;
+
   if (!username || !password) {
     return res
       .status(400)
       .json({ message: "username and password are required" });
   }
   try {
-    const foundUser = await User.findOne({ username: username }).exec();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let foundUser;
+
+    if (emailPattern.test(username)) {
+      foundUser = await User.findOne({ email: username }).exec();
+    } else {
+      foundUser = await User.findOne({ username: username }).exec();
+    }
+
+    // const foundUser = await User.findOne({ username: username }).exec();
     if (!foundUser) {
       return res
         .status(401)
@@ -20,13 +30,14 @@ const handleLogin = async (req, res) => {
     if (match) {
       const accessToken = jwt.sign(
         {
-          username,
+          username: foundUser.username,
+          email: foundUser.email,
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "10m" }
       );
       const refreshToken = jwt.sign(
-        { username },
+        { username: foundUser.username },
         process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: "10d" }
       );

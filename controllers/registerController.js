@@ -21,25 +21,28 @@ const handleRegister = async (req, res) => {
     symbol: 0,
     requirementCount: 0,
   };
-  const { username, password } = req.body;
-  if (!username || !password) {
+  const { username, password, email } = req.body;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!username || !password || !email) {
     return res
       .status(400)
-      .json({ message: "username and password are required" });
+      .json({ message: "username and password and email are required" });
   }
   const usernameValidate =
     passwordComplexity(usernameOptions).validate(username);
   const passwordValidate =
     passwordComplexity(passwordOptions).validate(password);
+  const emailValidate = emailPattern.test(email);
 
-  if (usernameValidate.error || passwordValidate.error) {
-    return res
-      .status(400)
-      .json({ message: "username or password wasn't given correctly" });
+  if (usernameValidate.error || passwordValidate.error || !emailValidate) {
+    return res.status(400).json({
+      message: "username or password or email wasn't given correctly",
+    });
   }
 
-  const duplicate = await User.findOne({ username: username }).exec();
-  if (duplicate) {
+  const duplicateUsername = await User.findOne({ username: username }).exec();
+  const duplicateEmail = await User.findOne({ email: email });
+  if (duplicateUsername || duplicateEmail) {
     return res.sendStatus(409);
   }
 
@@ -48,6 +51,7 @@ const handleRegister = async (req, res) => {
     const result = await User.create({
       username,
       password: hashedPassword,
+      email,
     });
   } catch (err) {
     console.log(err);

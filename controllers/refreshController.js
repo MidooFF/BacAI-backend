@@ -22,6 +22,7 @@ const handleRefresh = async (req, res) => {
   const accessToken = jwt.sign(
     {
       username: foundUser.username,
+      email: foundUser.email,
     },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "10m" }

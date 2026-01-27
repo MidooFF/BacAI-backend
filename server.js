@@ -37,6 +37,9 @@ app.use("/register", require("./routes/register.js"));
 app.use("/auth", require("./routes/auth.js"));
 app.use("/logout", require("./routes/logout.js"));
 app.use("/refresh", require("./routes/refresh.js"));
+app.use("/forgot-password", require("./routes/forgot-password.js"));
+app.use("/verify-reset-code", require("./routes/verify-reset-code.js"));
+app.use("/reset-password", require("./routes/reset-password.js"));
 
 app.use(verifyJWT);
 

@@ -42,8 +42,11 @@ const handleRegister = async (req, res) => {
 
   const duplicateUsername = await User.findOne({ username: username }).exec();
   const duplicateEmail = await User.findOne({ email: email });
-  if (duplicateUsername || duplicateEmail) {
-    return res.sendStatus(409);
+  if (duplicateUsername) {
+    return res.status(409).json({message: "used username"});
+  }
+  if (duplicateEmail) {
+        return res.status(409).json({message: "used email"});
   }
 
   try {

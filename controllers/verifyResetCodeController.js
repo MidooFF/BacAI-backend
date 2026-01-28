@@ -15,16 +15,13 @@ const verifyResetCode = async (req, res) => {
         .json({ message: "Invalid or expired verification code" });
     }
 
-    const resetToken =
-      Math.random().toString(36).substring(2) + Date.now().toString(36);
-
-    foundUser.resetPasswordToken = resetToken;
-    foundUser.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+    foundUser.isVerifiedForReset = true;
+    foundUser.verificationCode = undefined;
+    foundUser.verificationCodeExpires = undefined;
     await foundUser.save();
 
     res.json({
       message: "Code verified successfully",
-      resetToken,
     });
   } catch (err) {
     console.log(err);

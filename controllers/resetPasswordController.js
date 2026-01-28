@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 
 const resetPassword = async (req, res) => {
   try {
-    const { resetToken, newPassword } = req.body;
+    const { email, newPassword } = req.body;
 
     const foundUser = await User.findOne({
-      resetPasswordToken: resetToken,
-      resetPasswordExpires: { $gt: Date.now() },
+      email: email,
+      isVerifiedForReset: true,
     });
 
     if (!foundUser) {
@@ -18,10 +18,10 @@ const resetPassword = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     foundUser.password = hashedPassword;
-    foundUser.resetPasswordToken = undefined;
-    foundUser.resetPasswordExpires = undefined;
-    foundUser.verificationCode = undefined;
-    foundUser.verificationCodeExpires = undefined;
+    foundUser.isVerifiedForReset = false;
+    // foundUser.resetPasswordExpires = undefined;
+    // foundUser.verificationCode = undefined;
+    // foundUser.verificationCodeExpires = undefined;
     await foundUser.save();
 
     res.json({ message: "Password reset successful" });

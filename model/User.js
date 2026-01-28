@@ -19,8 +19,7 @@ const userSchema = new Schema({
 
   refreshToken: String,
   lastSub: String,
-  resetPasswordToken: String,
-  resetPasswordExpires: Date,
+  isVerifiedForReset: Boolean,
   verificationCode: String,
   verificationCodeExpires: Date,
 });

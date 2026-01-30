@@ -46,7 +46,7 @@ const handleRegister = async (req, res) => {
     return res.status(409).json({message: "used username"});
   }
   if (duplicateEmail) {
-        return res.status(409).json({message: "used email"});
+    return res.status(409).json({message: "used email"});
   }
 
   try {
